@@ -19,8 +19,9 @@ model User {
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id   Int     @id @default(autoincrement())
+  name String  @unique
+  test Tests[]
 
   @@map("categories")
 }
@@ -54,19 +55,23 @@ model Discipline {
 model TeachersDiscipline {
   id           Int        @id @default(autoincrement())
   name         String     @unique
-  teacher      Teacher    @relation(fields: [teacherId], references: [id])
   teacherId    Int
-  discipline   Discipline @relation(fields: [disciplineId], references: [id])
   disciplineId Int
+  discipline   Discipline @relation(fields: [disciplineId], references: [id])
+  teacher      Teacher    @relation(fields: [teacherId], references: [id])
+  test Tests[]
 
   @@map("teachersDisciplines")
 }
 
-// model Tests {
-//   id     Int    @id @default(autoincrement())
-//   name   String
-//   pdfUrl String
-//   categoryId Int 
+model Tests {
+  id                   Int                @id @default(autoincrement())
+  name                 String
+  pdfUrl               String
+  categoryId           Int
+  teachersDisciplineId Int
+  teachersDiscipline   TeachersDiscipline @relation(fields: [teachersDisciplineId], references: [id])
+  category             Category           @relation(fields: [categoryId], references: [id])
 
-//   @@map("tests")
-// }
+  @@map("tests")
+}
