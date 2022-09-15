@@ -8,15 +8,15 @@ import { User } from "@prisma/client";
 
 dotenv.config()
 
-async function comparePassword(password: string, passwordDb: string) {
+async function findUserByEmail(email: string) {
 
-    const passwordValidation: boolean = bcrypt.compareSync(password, passwordDb);
+    const users: User[] = await authRepository.findUserByEmail(email);
 
-    if (!passwordValidation) {
-
-        throw { code: "Unauthorized", message: "Email ou password incorretos!" };
-
+    if(users.length) {
+        throw {code: "Unauthorized", message: "Email ou password inválido!"}
     }
+
+    return users;
 
 }
 
@@ -32,8 +32,30 @@ export async function findUser(user: IUser) {
 
 }
 
+export async function insertUser(user: IUserRequestBody) {
 
-export async function getToken(user: IUser) {
+    const password: string = await encryptPassword(user.password);
+    await configurePasswords(user, password);
+
+    await findUserByEmail(user.email)
+
+    await authRepository.insertUser(user);
+
+}
+
+async function comparePassword(password: string, passwordDb: string) {
+
+    const passwordValidation: boolean = bcrypt.compareSync(password, passwordDb);
+
+    if (!passwordValidation) {
+
+        throw { code: "Unauthorized", message: "Email ou password incorretos!" };
+
+    }
+
+}
+
+async function getToken(user: IUser) {
 
     const JWT_PASSWORD: string = String(process.env.JWT_KEY);
     const TIME: string = String(process.env.JWT_TIME)
@@ -41,6 +63,7 @@ export async function getToken(user: IUser) {
     const token: string = jwt.sign(user, JWT_PASSWORD, { expiresIn: TIME });
 
     return { token };
+}
 
 async function encryptPassword(password: string) {
 
@@ -54,28 +77,5 @@ async function configurePasswords(user: IUserRequestBody, password: string) {
 
     delete user.confirmedPassword;
     user.password = password;
-
-}
-
-export async function insertUser(user: IUserRequestBody) {
-
-    const password: string = await encryptPassword(user.password);
-    await configurePasswords(user, password);
-
-    await findUserByEmail(user.email)
-
-    await authRepository.insertUser(user);
-
-}
-
-async function findUserByEmail(email: string) {
-
-    const users: User[] = await authRepository.findUserByEmail(email);
-
-    if(users.length) {
-        throw {code: "Unauthorized", message: "Email ou password inválido!"}
-    }
-
-    return users;
 
 }

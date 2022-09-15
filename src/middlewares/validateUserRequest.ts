@@ -13,6 +13,8 @@ export async function validateSignInBody (req: Request, res: Response, next: Nex
 
     next();
 
+}
+
 export async function validateSignUpBody(req: Request, res: Response, next: NextFunction) {
 
     const validation = userSignUpSchema.validate(req.body);
