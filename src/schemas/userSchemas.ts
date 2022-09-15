@@ -7,4 +7,4 @@ const userSignUpSchema = joi.object<IUserRequestBody>({
     confirmedPassword: joi.ref("password")
 })
 
-export default userSignUpSchema ;
+export { userSignUpSchema };
