@@ -32,6 +32,13 @@ model Teacher {
   @@map("teachers")
 }
 
+model Term {
+  id     Int @id @default(autoincrement())
+  number Int @unique
+
+  @@map("terms")
+}
+
 // model Tests {
 //   id     Int    @id @default(autoincrement())
 //   name   String
