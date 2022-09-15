@@ -54,7 +54,6 @@ model Discipline {
 
 model TeachersDiscipline {
   id           Int        @id @default(autoincrement())
-  name         String     @unique
   teacherId    Int
   disciplineId Int
   discipline   Discipline @relation(fields: [disciplineId], references: [id])
