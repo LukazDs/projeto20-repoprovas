@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { validateUserRequestBody } from "../middlewares/validateRequestBodyUser";
+import * as authController from "../controllers/authController";
+import { validateSignInBody } from "../middlewares/validateUserRequest";
 
 export const authRouter = Router();
 
-authRouter.post('/signin', validateUserRequestBody);
+authRouter.post('/signin', validateSignInBody, authController.loginUser);
