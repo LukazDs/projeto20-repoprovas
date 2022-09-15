@@ -33,10 +33,20 @@ model Teacher {
 }
 
 model Term {
-  id     Int @id @default(autoincrement())
-  number Int @unique
+  id       Int          @id @default(autoincrement())
+  number   Int          @unique
+  displine Discipline[]
 
   @@map("terms")
+}
+
+model Discipline {
+  id     Int    @id @default(autoincrement())
+  name   String @unique
+  term   Term   @relation(fields: [termId], references: [id])
+  termId Int
+
+  @@map("disciplines")
 }
 
 // model Tests {
