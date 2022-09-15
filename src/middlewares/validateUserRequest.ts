@@ -7,7 +7,7 @@ export async function validateSignUpBody(req: Request, res: Response, next: Next
 
     if (validation.error) {
 
-        return res.status(422).send("Email ou password inválidos!")
+        return res.status(422).send("Formato do corpo da Requisição inválido!")
 
     }
 

@@ -2,7 +2,7 @@ import "express-async-errors";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 //import jwt from "jsonwebtoken";
-import { IUser, IUserRequestBody } from "../utils/sqlUserUtils";
+import { IUserRequestBody } from "../utils/sqlUserUtils";
 import * as authRepository from "../repositories/authRepository";
 import { User } from "@prisma/client";
 
@@ -17,7 +17,7 @@ async function encryptPassword(password: string) {
 }
 
 async function configurePasswords(user: IUserRequestBody, password: string) {
-    
+
     delete user.confirmedPassword;
     user.password = password;
 
@@ -26,8 +26,22 @@ async function configurePasswords(user: IUserRequestBody, password: string) {
 export async function insertUser(user: IUserRequestBody) {
 
     const password: string = await encryptPassword(user.password);
-    await configurePasswords(user, password)
+    await configurePasswords(user, password);
+
+    await findUserByEmail(user.email)
 
     await authRepository.insertUser(user);
+
+}
+
+async function findUserByEmail(email: string) {
+
+    const users: User[] = await authRepository.findUserByEmail(email);
+
+    if(users.length) {
+        throw {code: "Unauthorized", message: "Email ou password inválido!"}
+    }
+
+    return users;
 
 }
