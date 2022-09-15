@@ -20,7 +20,23 @@ model User {
 
 model Category {
   id   Int    @id @default(autoincrement())
-  name String
+  name String @unique
 
   @@map("categories")
 }
+
+model Teacher {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  @@map("teachers")
+}
+
+// model Tests {
+//   id     Int    @id @default(autoincrement())
+//   name   String
+//   pdfUrl String
+//   categoryId Int 
+
+//   @@map("tests")
+// }
