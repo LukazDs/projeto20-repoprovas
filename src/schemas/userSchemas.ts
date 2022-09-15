@@ -1,5 +1,10 @@
 import joi from "joi";
-import { IUserRequestBody } from "../utils/sqlUserUtils";
+import { IUser, IUserRequestBody } from "../utils/sqlUserUtils";
+
+const userSignInSchema = joi.object<IUser>({
+    email: joi.string().email().required(),
+    password: joi.string().min(8).required()
+})
 
 const userSignUpSchema = joi.object<IUserRequestBody>({
     email: joi.string().email().required(),
@@ -7,4 +12,4 @@ const userSignUpSchema = joi.object<IUserRequestBody>({
     confirmedPassword: joi.ref("password")
 })
 
-export { userSignUpSchema };
+export { userSignUpSchema, userSignInSchema };
