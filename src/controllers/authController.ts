@@ -5,10 +5,11 @@ import { IUser, IUserRequestBody } from "../utils/sqlUserUtils";
 export async function loginUser(req: Request, res: Response) {
 
     const user: IUser = req.body;
-    
-    const token = await authServices.findUser(user);
 
-    res.status(201).send(token);
+    const userDb = await authServices.findUser(user);
+    const token = await authServices.getToken(userDb);
+
+    res.status(201).send({token});
 
 }
 
