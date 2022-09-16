@@ -12,7 +12,7 @@ const verifyToken = (data: string) => {
         return dataToken;
     } catch (error) {
         console.log(error);
-        throw { code: "Unauthorized", message: "Token Inválido" };
+        return null;
     }
 };
 

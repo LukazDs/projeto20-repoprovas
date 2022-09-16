@@ -12,7 +12,7 @@ async function findUserByEmail(email: string) {
 
     const users: User[] = await authRepository.findUserByEmail(email);
 
-    if(users.length) {
+    if(!users.length) {
         throw {code: "Unauthorized", message: "Email ou password inválido!"}
     }
 
@@ -22,13 +22,11 @@ async function findUserByEmail(email: string) {
 
 export async function findUser(user: IUser) {
 
-    const users: User[] = await authRepository.findUserByEmail(user.email);
+    const users: User[] = await findUserByEmail(user.email);
 
     await comparePassword(user.password, users[0].password);
 
-    const token = await getToken(user);
-
-    return token;
+    return users[0];
 
 }
 
@@ -55,14 +53,14 @@ async function comparePassword(password: string, passwordDb: string) {
 
 }
 
-async function getToken(user: IUser) {
+export async function getToken(user: User) {
 
     const JWT_PASSWORD: string = String(process.env.JWT_KEY);
     const TIME: string = String(process.env.JWT_TIME)
 
     const token: string = jwt.sign(user, JWT_PASSWORD, { expiresIn: TIME });
 
-    return { token };
+    return token;
 }
 
 async function encryptPassword(password: string) {
