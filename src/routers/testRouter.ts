@@ -11,3 +11,8 @@ testRouter.post(
   validateTestBody,
   testController.insertTest
 );
+
+testRouter.get(
+  "/terms/disciplines/:disciplineId/tests/",
+  testController.getTestsbyDisciplineId
+);

@@ -24,10 +24,10 @@ export async function findTeachersDiscipline(
 export async function findTeachersDisciplinesByDisciplineId(
   disciplineId: number
 ) {
-  const teachersDisciplines: TeachersDiscipline[] =
+  const teachersDisciplines: TeachersDiscipline =
     await teachersDisciplinesRepository.findTeachersDisciplinesByDisciplineId(
       disciplineId
     );
 
-  return teachersDisciplines[0];
+  return teachersDisciplines;
 }

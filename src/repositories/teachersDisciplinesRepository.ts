@@ -21,5 +21,5 @@ export async function findTeachersDisciplinesByDisciplineId(
       where: { disciplineId },
     });
 
-  return teachersDisciplines;
+  return teachersDisciplines[0];
 }

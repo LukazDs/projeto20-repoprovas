@@ -8,5 +8,9 @@ export async function insertTest(test: ITest) {
 export async function findTestsByTeachersDisciplineId(
   teachersDisciplineId: number
 ) {
-  await prisma.tests.findMany({ where: { teachersDisciplineId } });
+  const teachersDisciplines = await prisma.tests.findMany({
+    where: { teachersDisciplineId },
+  });
+
+  return teachersDisciplines;
 }
