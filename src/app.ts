@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { authRouter } from "./routers/authRouter";
 import errorHandler from "./middlewares/errorHandler";
 import { testRouter } from "./routers/testRouter";
+import { disciplineRouter } from "./routers/disciplineRouter";
 
 dotenv.config();
 
@@ -13,7 +14,8 @@ const app = express();
 app.use(express.json(), cors());
 
 app.use(authRouter);
-app.use(testRouter)
+app.use(testRouter);
+app.use(disciplineRouter);
 
 app.use(errorHandler);
 

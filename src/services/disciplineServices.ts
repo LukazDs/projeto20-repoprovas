@@ -12,12 +12,13 @@ export async function findDisciplineByName(name: string) {
   return disciplines[0];
 }
 
-export async function findDisciplineByTermId(name: string) {
-  const disciplines: string = "pega disciplinas";
+export async function findDisciplineByTermId(termId: number) {
+  const disciplines: Discipline[] =
+    await disciplineRepository.findDisciplineByTermId(termId);
 
   if (!disciplines.length) {
     throw { code: "NotFound", message: "Disciplina não encontrada!" };
   }
 
-  return disciplines[0];
+  return disciplines;
 }

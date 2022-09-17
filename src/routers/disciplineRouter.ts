@@ -2,7 +2,7 @@ import { Router } from "express";
 //import { validateToken } from "../middlewares/validateToken";
 import * as disciplineController from "../controllers/disciplineController";
 
-const disciplineRouter = Router();
+export const disciplineRouter = Router();
 
 disciplineRouter.get(
   "/disciplines/:termId",
