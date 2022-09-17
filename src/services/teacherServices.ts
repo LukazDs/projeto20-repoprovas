@@ -1,6 +1,10 @@
 import * as teacherRepository from "../repositories/teacherRepository";
 import { Teacher } from "@prisma/client";
 
+export async function findTeachers() {
+  return await teacherRepository.findTeachers();
+}
+
 export async function findTeacherByName(name: string) {
   const teachers: Teacher[] = await teacherRepository.findTeacherByName(name);
 

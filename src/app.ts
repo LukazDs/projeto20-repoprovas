@@ -7,6 +7,7 @@ import errorHandler from "./middlewares/errorHandler";
 import { testRouter } from "./routers/testRouter";
 import { disciplineRouter } from "./routers/disciplineRouter";
 import { termRouter } from "./routers/termRouter";
+import { teacherRouter } from "./routers/teacherRouter";
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(authRouter);
 app.use(testRouter);
 app.use(disciplineRouter);
 app.use(termRouter);
+app.use(teacherRouter);
 
 app.use(errorHandler);
 
