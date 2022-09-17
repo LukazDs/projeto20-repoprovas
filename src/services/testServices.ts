@@ -10,12 +10,15 @@ export async function insertTest(test: ITestReqBody) {
   const { id: categoryId } = await categoryServices.findCategoryByName(
     test.category
   );
+
   const { id: teacherId } = await teacherServices.findTeacherByName(
     test.teacher
   );
+
   const { id: disciplineId } = await disciplineServices.findDisciplineByName(
     test.displine
   );
+
   const { id: teachersDisciplineId } =
     await teachersDisciplinesServices.findTeachersDiscipline(
       disciplineId,
@@ -35,5 +38,6 @@ export async function findTestsByTeachersDisciplineId(
   const tests: Tests[] = await testRepository.findTestsByTeachersDisciplineId(
     teachersDisciplineId
   );
+
   return tests;
 }
