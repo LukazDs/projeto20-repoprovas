@@ -11,12 +11,7 @@ export async function findTeachersDiscipline(
       teacherId
     );
 
-  if (!teachersDisciplines.length) {
-    throw {
-      code: "NotFound",
-      message: "Professor ou disciplina não vinculados!",
-    };
-  }
+  await checkArrayLength(teachersDisciplines);
 
   return teachersDisciplines[0];
 }
@@ -24,10 +19,21 @@ export async function findTeachersDiscipline(
 export async function findTeachersDisciplinesByDisciplineId(
   disciplineId: number
 ) {
-  const teachersDisciplines: TeachersDiscipline =
+  const teachersDisciplines: TeachersDiscipline[] =
     await teachersDisciplinesRepository.findTeachersDisciplinesByDisciplineId(
       disciplineId
     );
 
-  return teachersDisciplines;
+  await checkArrayLength(teachersDisciplines);
+
+  return teachersDisciplines[0];
+}
+
+async function checkArrayLength(arr: TeachersDiscipline[]) {
+  if (!arr.length) {
+    throw {
+      code: "NotFound",
+      message: "Professor ou disciplina não vinculados!",
+    };
+  }
 }
