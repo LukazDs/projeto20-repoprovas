@@ -5,4 +5,9 @@ import { validateToken } from "../middlewares/validateToken";
 
 export const testRouter = Router();
 
-testRouter.post('/tests', validateToken, validateTestBody, testController.insertTest);
+testRouter.post(
+  "/tests",
+  validateToken,
+  validateTestBody,
+  testController.insertTest
+);
