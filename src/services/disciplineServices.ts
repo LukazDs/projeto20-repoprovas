@@ -22,3 +22,14 @@ export async function findDisciplineByTermId(termId: number) {
 
   return disciplines;
 }
+
+export async function findDisciplineById(id: number) {
+  const disciplines: Discipline[] =
+    await disciplineRepository.findDisciplineById(id);
+
+  if (!disciplines.length) {
+    throw { code: "NotFound", message: "Disciplina não encontrada!" };
+  }
+
+  return disciplines;
+}
