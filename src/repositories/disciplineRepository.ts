@@ -2,10 +2,17 @@ import { Discipline } from "@prisma/client";
 import { prisma } from "../config/database";
 
 export async function findDisciplineByName(name: string) {
+  const disciplines: Discipline[] = await prisma.discipline.findMany({
+    where: { name },
+  });
 
-    const disciplines: Discipline[] = await prisma.discipline
-        .findMany({ where: { name } })
+  return disciplines;
+}
 
-    return disciplines;
+export async function findDisciplineByTermId(termId: number) {
+  const disciplines: Discipline[] = await prisma.discipline.findMany({
+    where: { termId },
+  });
 
+  return disciplines;
 }
