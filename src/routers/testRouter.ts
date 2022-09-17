@@ -14,5 +14,6 @@ testRouter.post(
 
 testRouter.get(
   "/terms/disciplines/:disciplineId/tests/",
+  validateToken,
   testController.getTestsbyDisciplineId
 );

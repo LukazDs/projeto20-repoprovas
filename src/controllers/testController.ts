@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as testServices from "../services/testServices";
+import * as disciplineServices from "../services/disciplineServices";
 import * as teachersDiscipline from "../services/teachersDisciplinesServices";
 import { ITestReqBody } from "../utils/sqlTestUtils";
 import { TeachersDiscipline, Tests } from "@prisma/client";
@@ -14,6 +15,8 @@ export async function insertTest(req: Request, res: Response) {
 
 export async function getTestsbyDisciplineId(req: Request, res: Response) {
   const disciplineId: number = Number(req.params.disciplineId);
+
+  await disciplineServices.findDisciplineById(disciplineId);
 
   const teachersDisciplines: TeachersDiscipline =
     await teachersDiscipline.findTeachersDisciplinesByDisciplineId(
