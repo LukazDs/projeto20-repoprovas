@@ -5,6 +5,6 @@ import * as disciplineController from "../controllers/disciplineController";
 const disciplineRouter = Router();
 
 disciplineRouter.get(
-  "/disciplines/:id",
-  disciplineController.findDisciplineById
+  "/disciplines/:termId",
+  disciplineController.findDisciplineByTermId
 );

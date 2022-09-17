@@ -1,9 +1,8 @@
 import { Request, Response } from "express";
+import * as disciplineServices from "../services/disciplineServices";
 
-export async function findDisciplineById(req: Request, res: Response) {
-  const { id } = req.params;
+export async function findDisciplineByTermId(_req: Request, res: Response) {
+  const disciplines = "pega as disciplinas";
 
-  const discipline = "pega disciplina";
-
-  return discipline;
+  return disciplines;
 }
