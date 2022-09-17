@@ -13,7 +13,7 @@ testRouter.post(
 );
 
 testRouter.get(
-  "/terms/disciplines/:disciplineId/tests/",
+  "/terms/disciplines/:disciplineId/tests/teachers",
   validateToken,
-  testController.getTestsbyDisciplineId
+  testController.getTestsByDisciplineId
 );
