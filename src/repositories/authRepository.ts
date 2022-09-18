@@ -11,5 +11,5 @@ export async function findUserByEmail(email: String) {
     where: { email: String(email) },
   });
 
-  return users;
+  return users[0];
 }

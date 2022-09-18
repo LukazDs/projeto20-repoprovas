@@ -8,29 +8,40 @@ import { User } from "@prisma/client";
 
 dotenv.config();
 
-async function findUserByEmail(email: string) {
-  const users: User[] = await authRepository.findUserByEmail(email);
+// user conflict
+async function findUserByEmailLogin(email: string) {
+  const user: User = await authRepository.findUserByEmail(email);
 
-  if (!users.length) {
+  if (!user) {
     throw { code: "Unauthorized", message: "Email ou password inválido!" };
   }
 
-  return users;
+  return user;
 }
 
-export async function findUser(user: IUser) {
-  const users: User[] = await findUserByEmail(user.email);
+async function findUserByEmailSigIn(email: string) {
+  const user: User = await authRepository.findUserByEmail(email);
 
-  await comparePassword(user.password, users[0].password);
+  if (user) {
+    throw { code: "Unauthorized", message: "Email ou password inválido!" };
+  }
 
-  return users[0];
+  return user;
+}
+
+export async function findUserLogin(user: IUser) {
+  const userDb: User = await findUserByEmailLogin(user.email);
+
+  await comparePassword(user.password, userDb.password);
+
+  return userDb;
 }
 
 export async function insertUser(user: IUserRequestBody) {
   const password: string = await encryptPassword(user.password);
   await configurePasswords(user, password);
 
-  await findUserByEmail(user.email);
+  await findUserByEmailSigIn(user.email);
 
   await authRepository.insertUser(user);
 }
