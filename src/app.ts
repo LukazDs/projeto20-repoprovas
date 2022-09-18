@@ -8,6 +8,7 @@ import { testRouter } from "./routers/testRouter";
 import { disciplineRouter } from "./routers/disciplineRouter";
 import { termRouter } from "./routers/termRouter";
 import { teacherRouter } from "./routers/teacherRouter";
+import { categorieRouter } from "./routers/categorieRouter";
 
 dotenv.config();
 
@@ -20,6 +21,7 @@ app.use(testRouter);
 app.use(disciplineRouter);
 app.use(termRouter);
 app.use(teacherRouter);
+app.use(categorieRouter);
 
 app.use(errorHandler);
 

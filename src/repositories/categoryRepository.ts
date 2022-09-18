@@ -8,3 +8,9 @@ export async function findCategoryByName(name: string) {
 
   return categories;
 }
+
+export async function findCategories() {
+  const categories: Category[] = await prisma.category.findMany();
+
+  return categories;
+}
