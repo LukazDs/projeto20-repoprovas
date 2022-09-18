@@ -30,10 +30,10 @@ export async function findTeachersDisciplinesByDisciplineId(
 
   await checkArrayLength(teachersDisciplines);
 
-  const teachersAndDisciplines = [];
+  const teachersAndTests = [];
 
   for (let i = 0; i < teachersDisciplines.length; i++) {
-    teachersAndDisciplines.push({
+    teachersAndTests.push({
       teacher: await teacherServices.findTeacherById(
         teachersDisciplines[i].teacherId
       ),
@@ -43,7 +43,7 @@ export async function findTeachersDisciplinesByDisciplineId(
     });
   }
 
-  return teachersAndDisciplines;
+  return teachersAndTests;
 }
 
 export async function findTeachersDisciplinesByTeacherId(teacherId: number) {
@@ -54,7 +54,20 @@ export async function findTeachersDisciplinesByTeacherId(teacherId: number) {
 
   await checkArrayLength(teachersDisciplines);
 
-  return teachersDisciplines;
+  const disciplineAndTest = [];
+
+  for (let i = 0; i < teachersDisciplines.length; i++) {
+    disciplineAndTest.push({
+      discipline: await disciplineServices.findDisciplineById(
+        teachersDisciplines[i].disciplineId
+      ),
+      tests: await testServices.findTestsByTeachersDisciplineId(
+        teachersDisciplines[i].id
+      ),
+    });
+  }
+
+  return disciplineAndTest;
 }
 
 async function checkArrayLength(arr: TeachersDiscipline[]) {

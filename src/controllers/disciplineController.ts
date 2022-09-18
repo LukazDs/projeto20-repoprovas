@@ -10,7 +10,7 @@ export async function findDisciplineByTermId(req: Request, res: Response) {
   res.status(200).send(disciplines);
 }
 
-export async function getDisciplines(req: Request, res: Response) {
+export async function getDisciplines(_req: Request, res: Response) {
   const disciplines: Discipline[] = await disciplineServices.findDisciplines();
 
   res.status(200).send(disciplines);

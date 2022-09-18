@@ -28,7 +28,7 @@ export async function getTeachersDisciplinesByTeacherId(
 
   await teacherServices.findTeacherById(teacherId);
 
-  const teachersDisciplines: TeachersDiscipline[] =
+  const teachersDisciplines =
     await teachersDiscipline.findTeachersDisciplinesByTeacherId(teacherId);
 
   res.status(200).send(teachersDisciplines);
