@@ -7,27 +7,24 @@ import * as teachersDisciplinesServices from "../services/teachersDisciplinesSer
 import { Tests } from "@prisma/client";
 
 export async function insertTest(test: ITestReqBody) {
-  const { id: categoryId } = await categoryServices.findCategoryByName(
-    test.category
-  );
-
-  const { id: teacherId } = await teacherServices.findTeacherByName(
-    test.teacher
-  );
-
-  const { id: disciplineId } = await disciplineServices.findDisciplineByName(
-    test.displine
-  );
+  await categoryServices.findCategoryById(test.categoryId);
+  await teacherServices.findTeacherById(test.teacherId);
+  await disciplineServices.findDisciplineById(test.disciplineId);
 
   const { id: teachersDisciplineId } =
     await teachersDisciplinesServices.findTeachersDiscipline(
-      disciplineId,
-      teacherId
+      test.disciplineId,
+      test.teacherId
     );
 
-  const { name, pdfUrl } = test;
+  const { name, pdfUrl, categoryId } = test;
 
-  const payload: ITest = { name, pdfUrl, categoryId, teachersDisciplineId };
+  const payload: ITest = {
+    name,
+    pdfUrl,
+    categoryId,
+    teachersDisciplineId,
+  };
 
   await testRepository.insertTest(payload);
 }
