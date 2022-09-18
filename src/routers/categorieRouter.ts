@@ -9,3 +9,9 @@ categorieRouter.get(
   validateToken,
   categorieController.getCategories
 );
+
+categorieRouter.get(
+  "/categories/:id",
+  validateToken,
+  categorieController.getCategoryById
+);

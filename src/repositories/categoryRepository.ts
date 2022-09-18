@@ -14,3 +14,11 @@ export async function findCategories() {
 
   return categories;
 }
+
+export async function findCategoryById(id: number) {
+  const categories: Category[] = await prisma.category.findMany({
+    where: { id },
+  });
+
+  return categories;
+}
