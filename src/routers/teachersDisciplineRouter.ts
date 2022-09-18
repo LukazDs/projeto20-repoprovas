@@ -5,7 +5,13 @@ import * as teacherDisciplineController from "../controllers/teachersDisciplineC
 export const teachersDisciplineRouter = Router();
 
 teachersDisciplineRouter.get(
-  "/terms/disciplines/:disciplineId/tests/teachers",
+  "/disciplines/:disciplineId/tests/teachers",
   validateToken,
   teacherDisciplineController.getTeachersDisciplinesByDisciplineId
+);
+
+teachersDisciplineRouter.get(
+  "/teachers/:teacherId/tests/disciplines",
+  validateToken,
+  teacherDisciplineController.getTeachersDisciplinesByTeacherId
 );
