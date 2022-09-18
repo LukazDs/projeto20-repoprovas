@@ -12,7 +12,7 @@ export async function getTeachersDisciplinesByDisciplineId(
 
   await disciplineServices.findDisciplineById(disciplineId);
 
-  const teachersDisciplines: TeachersDiscipline[] =
+  const teachersDisciplines =
     await teachersDiscipline.findTeachersDisciplinesByDisciplineId(
       disciplineId
     );

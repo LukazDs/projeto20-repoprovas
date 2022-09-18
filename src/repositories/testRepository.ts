@@ -10,6 +10,7 @@ export async function findTestsByTeachersDisciplineId(
 ) {
   const teachersDisciplines = await prisma.tests.findMany({
     where: { teachersDisciplineId },
+    orderBy: { categoryId: "asc" },
   });
 
   return teachersDisciplines;

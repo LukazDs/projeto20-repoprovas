@@ -1,4 +1,8 @@
 import * as teachersDisciplinesRepository from "../repositories/teachersDisciplinesRepository";
+import * as disciplineServices from "../services/disciplineServices";
+import * as teacherServices from "../services/teacherServices";
+import * as testServices from "../services/testServices";
+
 import { TeachersDiscipline } from "@prisma/client";
 
 export async function findTeachersDiscipline(
@@ -26,7 +30,20 @@ export async function findTeachersDisciplinesByDisciplineId(
 
   await checkArrayLength(teachersDisciplines);
 
-  return teachersDisciplines;
+  const teachersAndDisciplines = [];
+
+  for (let i = 0; i < teachersDisciplines.length; i++) {
+    teachersAndDisciplines.push({
+      teacher: await teacherServices.findTeacherById(
+        teachersDisciplines[i].teacherId
+      ),
+      tests: await testServices.findTestsByTeachersDisciplineId(
+        teachersDisciplines[i].id
+      ),
+    });
+  }
+
+  return teachersAndDisciplines;
 }
 
 export async function findTeachersDisciplinesByTeacherId(teacherId: number) {
