@@ -5,3 +5,9 @@ import { validateToken } from "../middlewares/validateToken";
 export const teacherRouter: Router = Router();
 
 teacherRouter.get("/teachers", validateToken, teacherController.getTeachers);
+
+teacherRouter.get(
+  "/teachers/:id",
+  validateToken,
+  teacherController.getTeacherById
+);
