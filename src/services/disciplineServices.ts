@@ -1,6 +1,13 @@
 import * as disciplineRepository from "../repositories/disciplineRepository";
 import { Discipline } from "@prisma/client";
 
+export async function findDisciplines() {
+  const disciplines: Discipline[] =
+    await disciplineRepository.findDisciplines();
+
+  return disciplines;
+}
+
 export async function findDisciplineByName(name: string) {
   const disciplines: Discipline[] =
     await disciplineRepository.findDisciplineByName(name);

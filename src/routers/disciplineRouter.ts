@@ -9,3 +9,9 @@ disciplineRouter.get(
   validateToken,
   disciplineController.findDisciplineByTermId
 );
+
+disciplineRouter.get(
+  "/disciplines",
+  validateToken,
+  disciplineController.getDisciplines
+);
