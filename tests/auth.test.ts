@@ -1,29 +1,37 @@
 import supertest from "supertest";
+import { faker } from "@faker-js/faker";
 import app from "../src/app";
+import { IUserRequestBody } from "../src/utils/sqlUserUtils";
+import { ITestReqBody } from "../src/utils/sqlTestUtils";
 import { prisma } from "../src/config/database";
 
-const item1 = {
-  title: "Teste2",
-  url: "https://teste.com",
-  description: "testando app",
-  amount: 33,
+const test: ITestReqBody = {
+  name: faker.name.fullName(),
+  pdfUrl: faker.internet.url(),
+  disciplineId: 4,
+  teacherId: 1,
+  categoryId: 1,
 };
 
-beforeEach(async () => {
-  await prisma.$executeRaw`TRUNCATE TABLE items;`;
-});
+console.log(faker.internet.email());
 
-describe("Testa POST /items ", () => {
-  it("Deve retornar 201, se cadastrado um item no formato correto", async () => {
-    const result = await supertest(app).post("/items").send(item1);
+const user: IUserRequestBody = {
+  email: faker.internet.email(),
+  password: "teste1234",
+  confirmedPassword: "teste1234",
+};
+
+describe("Testa POST /signin ", () => {
+  it("Deve retornar 201, se cadastrado um usuário no formato correto", async () => {
+    const result = await supertest(app).post("/signup").send(user);
     expect(result.status).toBe(201);
   });
 
-  it("Deve retornar 409, ao tentar cadastrar um item que exista", async () => {
-    await supertest(app).post("/items").send(item1);
-    const result = await supertest(app).post("/items").send(item1);
-    expect(result.status).toBe(409);
-  });
+  //   it("Deve retornar 409, ao tentar cadastrar um item que exista", async () => {
+  //     await supertest(app).post("/items").send(item1);
+  //     const result = await supertest(app).post("/items").send(item1);
+  //     expect(result.status).toBe(409);
+  //   });
 });
 
 // describe("Testa GET /items ", () => {
