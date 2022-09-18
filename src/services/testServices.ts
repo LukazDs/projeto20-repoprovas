@@ -39,5 +39,19 @@ export async function findTestsByTeachersDisciplineId(
     teachersDisciplineId
   );
 
-  return tests;
+  const testsWithCategorieName = [];
+
+  for (let i = 0; i < tests.length; i++) {
+    testsWithCategorieName.push({
+      id: tests[i].id,
+      name: tests[i].name,
+      pdfUrl: tests[i].pdfUrl,
+      categoryName: await categoryServices.findCategoryById(
+        tests[i].categoryId
+      ),
+      teachersDisciplineId: tests[i].teachersDisciplineId,
+    });
+  }
+
+  return testsWithCategorieName;
 }
