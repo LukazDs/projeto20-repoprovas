@@ -11,3 +11,9 @@ testRouter.post(
   validateTestBody,
   testController.insertTest
 );
+
+testRouter.get(
+  "/tests/teacher-discipline/:id",
+  validateToken,
+  testController.getTestByTeachersDisciplineId
+);
