@@ -26,8 +26,6 @@ export async function getTeachersDisciplinesByTeacherId(
 ) {
   const teacherId: number = Number(req.params.teacherId);
 
-  console.log(teacherId);
-
   await teacherServices.findTeacherById(teacherId);
 
   const teachersDisciplines: TeachersDiscipline[] =
