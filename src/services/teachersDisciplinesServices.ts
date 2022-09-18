@@ -24,9 +24,11 @@ export async function findTeachersDisciplinesByDisciplineId(
       disciplineId
     );
 
+  console.log(teachersDisciplines);
+
   await checkArrayLength(teachersDisciplines);
 
-  return teachersDisciplines[0];
+  return teachersDisciplines;
 }
 
 async function checkArrayLength(arr: TeachersDiscipline[]) {
