@@ -23,3 +23,12 @@ export async function findTeachersDisciplinesByDisciplineId(
 
   return teachersDisciplines;
 }
+
+export async function findTeachersDisciplinesByTeacherId(teacherId: number) {
+  const teachersDisciplines: TeachersDiscipline[] =
+    await prisma.teachersDiscipline.findMany({
+      where: { teacherId },
+    });
+
+  return teachersDisciplines;
+}
