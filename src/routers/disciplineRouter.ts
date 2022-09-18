@@ -5,7 +5,7 @@ import * as disciplineController from "../controllers/disciplineController";
 export const disciplineRouter = Router();
 
 disciplineRouter.get(
-  "/disciplines/:termId",
+  "/terms/:termId/disciplines",
   validateToken,
   disciplineController.findDisciplineByTermId
 );
