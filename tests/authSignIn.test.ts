@@ -31,6 +31,15 @@ describe("Testa POST /signin ", () => {
     expect(result.status).toBe(401);
   });
 
+  it("Deve retornar 401, ao tentar logar um email que exista mas o password diferente", async () => {
+    await supertest(app).post("/signup").send(userSignUp);
+
+    userSignIn.password = faker.lorem.word(8);
+
+    const result = await supertest(app).post("/signin").send(userSignIn);
+    expect(result.status).toBe(401);
+  });
+
   // it("Deve retornar 422, ao tentar cadastrar um formato de corpo inválido", async () => {
   //   const result = await supertest(app)
   //     .post("/signup")
