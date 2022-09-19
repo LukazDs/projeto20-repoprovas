@@ -21,17 +21,18 @@ const user: IUserRequestBody = {
   confirmedPassword: "teste1234",
 };
 
-describe("Testa POST /signin ", () => {
+describe("Testa POST /signup ", () => {
   it("Deve retornar 201, se cadastrado um usuário no formato correto", async () => {
     const result = await supertest(app).post("/signup").send(user);
     expect(result.status).toBe(201);
   });
 
-  //   it("Deve retornar 409, ao tentar cadastrar um item que exista", async () => {
-  //     await supertest(app).post("/items").send(item1);
-  //     const result = await supertest(app).post("/items").send(item1);
-  //     expect(result.status).toBe(409);
-  //   });
+  it("Deve retornar 401, ao tentar cadastrar um email que exista", async () => {
+    await supertest(app).post("/signup").send(user);
+
+    const result = await supertest(app).post("/signup").send(user);
+    expect(result.status).toBe(401);
+  });
 });
 
 // describe("Testa GET /items ", () => {
