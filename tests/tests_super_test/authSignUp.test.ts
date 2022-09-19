@@ -1,28 +1,33 @@
 import supertest from "supertest";
-import app from "../src/app";
-import { prisma } from "../src/config/database";
+import { faker } from "@faker-js/faker";
+import app from "../../src/app";
+import { IUserRequestBody } from "../../src/utils/sqlUserUtils";
+import { prisma } from "../../src/config/database";
 
-const item1 = {
-  title: "Teste2",
-  url: "https://teste.com",
-  description: "testando app",
-  amount: 33,
+const userSignUp: IUserRequestBody = {
+  email: faker.internet.email(),
+  password: "teste1234",
+  confirmedPassword: "teste1234",
 };
 
-beforeEach(async () => {
-  await prisma.$executeRaw`TRUNCATE TABLE items;`;
-});
-
-describe("Testa POST /items ", () => {
-  it("Deve retornar 201, se cadastrado um item no formato correto", async () => {
-    const result = await supertest(app).post("/items").send(item1);
+describe("Testa POST /signup ", () => {
+  it("Deve retornar 201, se cadastrado um usuário no formato correto", async () => {
+    const result = await supertest(app).post("/signup").send(userSignUp);
     expect(result.status).toBe(201);
   });
 
-  it("Deve retornar 409, ao tentar cadastrar um item que exista", async () => {
-    await supertest(app).post("/items").send(item1);
-    const result = await supertest(app).post("/items").send(item1);
-    expect(result.status).toBe(409);
+  it("Deve retornar 401, ao tentar cadastrar um email que exista", async () => {
+    await supertest(app).post("/signup").send(userSignUp);
+
+    const result = await supertest(app).post("/signup").send(userSignUp);
+    expect(result.status).toBe(401);
+  });
+
+  it("Deve retornar 422, ao tentar cadastrar um formato de corpo inválido", async () => {
+    const result = await supertest(app)
+      .post("/signup")
+      .send({ teste: "teste" });
+    expect(result.status).toBe(422);
   });
 });
 
