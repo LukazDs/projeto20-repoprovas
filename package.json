@@ -5,9 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/index.js",
-    "test": "jest -i --no-cache",
-    "dev": "nodemon ./src/server.ts"
+    "start": "node ./dist/index.js"
   },
   "keywords": [],
   "author": "Lucas D. Silva",
