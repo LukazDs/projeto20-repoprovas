@@ -2,18 +2,15 @@ import supertest from "supertest";
 import { faker } from "@faker-js/faker";
 import app from "../src/app";
 import { IUserRequestBody } from "../src/utils/sqlUserUtils";
-import { ITestReqBody } from "../src/utils/sqlTestUtils";
 import { prisma } from "../src/config/database";
 
-const test: ITestReqBody = {
-  name: faker.name.fullName(),
-  pdfUrl: faker.internet.url(),
-  disciplineId: 4,
-  teacherId: 1,
-  categoryId: 1,
-};
-
-console.log(faker.internet.email());
+// const test: ITestReqBody = {
+//   name: faker.name.fullName(),
+//   pdfUrl: faker.internet.url(),
+//   disciplineId: 4,
+//   teacherId: 1,
+//   categoryId: 1,
+// };
 
 const user: IUserRequestBody = {
   email: faker.internet.email(),
