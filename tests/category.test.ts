@@ -29,6 +29,15 @@ describe("Testa rota /categories", () => {
 
     expect(result.status).toBe(200);
   });
+  it("Deve retornar 400 quando token for enviado vazio", async () => {
+    await supertest(app).post("/signup").send(userSignUp);
+
+    const result = await supertest(app)
+      .get("/categories")
+      .set("Authorization", "");
+
+    expect(result.status).toBe(400);
+  });
 });
 
 afterAll(async () => {
