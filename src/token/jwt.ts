@@ -10,7 +10,6 @@ const verifyToken = (data: string) => {
     const dataToken = jwt.verify(data, SECRET);
     return dataToken;
   } catch (error) {
-    console.log(error);
     return null;
   }
 };
