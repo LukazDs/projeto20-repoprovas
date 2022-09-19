@@ -1,8 +1,8 @@
 import supertest from "supertest";
 import { faker } from "@faker-js/faker";
-import app from "../src/app";
-import { prisma } from "../src/config/database";
-import { IUser, IUserRequestBody } from "../src/utils/sqlUserUtils";
+import app from "../../src/app";
+import { prisma } from "../../src/config/database";
+import { IUser, IUserRequestBody } from "../../src/utils/sqlUserUtils";
 
 const userSignUp: IUserRequestBody = {
   email: faker.internet.email(),
