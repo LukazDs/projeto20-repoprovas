@@ -33,6 +33,13 @@ describe("Testa POST /signup ", () => {
     const result = await supertest(app).post("/signup").send(user);
     expect(result.status).toBe(401);
   });
+
+  it("Deve retornar 422, ao tentar cadastrar um formato de corpo inválido", async () => {
+    const result = await supertest(app)
+      .post("/signup")
+      .send({ teste: "teste" });
+    expect(result.status).toBe(422);
+  });
 });
 
 // describe("Testa GET /items ", () => {
