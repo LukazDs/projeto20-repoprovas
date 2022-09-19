@@ -22,12 +22,14 @@ describe("Testa POST /signin ", () => {
     expect(result.status).toBe(201);
   });
 
-  // it("Deve retornar 401, ao tentar cadastrar um email que exista", async () => {
-  //   await supertest(app).post("/signup").send(user);
+  it("Deve retornar 401, ao tentar logar um email que não exista", async () => {
+    await supertest(app).post("/signup").send(userSignUp);
 
-  //   const result = await supertest(app).post("/signup").send(user);
-  //   expect(result.status).toBe(401);
-  // });
+    userSignIn.email = faker.internet.email();
+
+    const result = await supertest(app).post("/signin").send(userSignIn);
+    expect(result.status).toBe(401);
+  });
 
   // it("Deve retornar 422, ao tentar cadastrar um formato de corpo inválido", async () => {
   //   const result = await supertest(app)
