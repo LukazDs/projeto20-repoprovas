@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import * as disciplineServices from "../services/disciplineServices";
 import * as teachersDiscipline from "../services/teachersDisciplinesServices";
 import * as teacherServices from "../services/teacherServices";
-import { TeachersDiscipline } from "@prisma/client";
 
 export async function getTeachersDisciplinesByDisciplineId(
   req: Request,
